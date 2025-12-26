@@ -1,0 +1,43 @@
+my-app/
+├── tsconfig.json           # TypeScript configuration
+├── src/
+│   ├── main.ts            # TypeScript entry point
+│   ├── app/
+│   │   ├── app.module.ts  # TypeScript module
+│   │   ├── app.component.ts # TypeScript component
+│   │   └── app.component.spec.ts # TypeScript tests
+│   └── index.html
+└── package.json
+-
+
+
+
+
+
+1. Write TypeScript code (.ts files)
+   ↓
+2. Angular CLI watches for changes
+   ↓
+3. TypeScript compiler (tsc) compiles to JavaScript
+   ↓
+4. Webpack bundles everything
+   ↓
+5. Browser runs the JavaScript
+   ↓
+6. Angular runtime takes over
+
+
+
+
+
+
+
+
+
+    ___________________________________________________________
+   |Framework	    Default Language	    Can Use TypeScript?|
+   |Angular	        TypeScript	            Required           |
+   |React	        JavaScript	            Optional           |
+   |Vue	            JavaScript	            Optional           |
+   |Svelte	        JavaScript	            Optional           |
+   -------------------------------------------------------------
