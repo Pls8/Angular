@@ -5,6 +5,7 @@
       <div class="col animate-fade-in">
         <h1 class="mb-3">software engineer</h1>
         <p class="mb-4" style="font-size: 1.25rem; opacity: 0.8;">concept</p>
+        {{name}}
         <div class="d-flex gap-4">
           <button class="btn btn-outline-primary" (click)="scrollTo('experience')">View My Work</button>
           <button class="btn btn-outline-primary" (click)="scrollTo('contact')">Contact Me</button>
@@ -12,7 +13,7 @@
       </div>
       <div class="col-auto animate-fade-in">
         <div class="profile-img rounded-circle overflow-hidden">
-          <img src="assets/img/img1.png" 
+          <img [src]="heroImage" alt="profile-img"
                class="w-100 h-100 object-fit-cover">
         </div>
       </div>                

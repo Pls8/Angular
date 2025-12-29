@@ -690,3 +690,7 @@
                 transform: translateX(100%);
             }
 } */
+
+:root {
+    --bs-body-bg: #00020c;
+}
