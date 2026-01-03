@@ -128,3 +128,270 @@ my-app/
 ├── package.json          # Dependencies
 └── tsconfig.json        # TypeScript configuration
 ```
+---
+## <p align="right">LOG 2026-1-1</p>
+
+## High-Level Architecture
+
+```
+Angular (Frontend SPA)
+        │
+        │ HTTP / JSON
+        ▼
+ASP.NET Core Web API (Backend)
+        │
+        ▼
+Database
+```
+
+* **Angular**: User interface, interaction, client-side state
+* **ASP.NET Core API**: Business logic, validation, database access
+* **HTTP**: The only communication layer between frontend and backend
+
+There is **no direct file-level connection** between Angular and C#.
+
+---
+
+## Component Drilling (Frontend)
+
+### What it is
+
+Component drilling means **passing data or functions through multiple nested components**.
+
+Example:
+
+```
+AppComponent
+ └── ProductPage
+      └── ProductList
+           └── ProductItem
+```
+
+If `ProductItem` needs data from `AppComponent`, it must be passed through every intermediate component.
+
+### Why it is a problem
+
+* Hard to maintain
+* Tight coupling between components
+* Excessive use of `@Input()` and `@Output()`
+
+### Solutions
+
+* State management
+* Shared services
+* Signals or NgRx
+
+---
+
+## API, Endpoints, and Frontend Connection
+
+### What is an API?
+
+An API exposes backend functionality and data to clients.
+
+### What is an Endpoint?
+
+An endpoint consists of:
+
+* A URL
+* An HTTP method (GET, POST, PUT, DELETE)
+* A response (usually JSON)
+
+Example:
+
+```
+GET    /api/products
+POST   /api/products
+DELETE /api/products/{id}
+```
+
+### How Angular connects to the API
+
+* Uses `HttpClient`
+* Exchanges JSON only
+* No MVC views or Razor involved
+
+---
+
+## Postman and API Documentation
+
+### What is Postman?
+
+Postman is a tool used to test APIs without a frontend.
+
+### Why it is important
+
+* Validate endpoints
+* Verify request/response structure
+* Allow frontend and backend teams to work independently
+* Acts as living API documentation
+
+---
+
+## Backend Design Patterns (ASP.NET Core):
+
+### 1️.Specification Pattern
+
+**Purpose:** Encapsulate query rules.
+
+Instead of embedding conditions directly in code, business rules are defined as reusable specifications.
+
+Benefits:
+
+* Cleaner business logic
+* Reusable rules
+* Easier testing
+* Better alignment with Clean Architecture
+
+---
+
+### 2️.Unit of Work Pattern
+
+**Purpose:** Manage database transactions.
+
+Instead of saving changes in multiple places, all operations are committed together.
+
+Benefits:
+
+* Data consistency
+* Rollback support on failure
+* Clear separation of concerns
+
+---
+
+## Middleware (Backend)
+
+### What is Middleware?
+
+Middleware is code that executes **between receiving a request and returning a response**.
+
+```
+Request → Middleware → Controller → Middleware → Response
+```
+
+### Common examples
+
+* Authentication
+* Authorization
+* Logging
+* Exception handling
+* CORS
+
+Middleware exists only in the backend.
+
+---
+
+## Frontend Structure and Rules
+
+### Core / Shared Components (e.g. `CoreHeader`)
+
+These components:
+
+* Are reused across the application
+* Handle layout and navigation
+* Contain minimal or no business logic
+
+Examples:
+
+* Header
+* Footer
+* Navbar
+
+---
+
+## State Management (Frontend)
+
+### What it is
+
+How application data is stored, shared, and updated.
+
+### Examples
+
+* Angular Signals
+* Services
+* NgRx (advanced)
+
+### Why it matters
+
+* Prevents component drilling
+* Single source of truth
+* Predictable UI updates
+
+---
+
+## Environment Variables (`.env`)
+
+### What they are
+
+Environment variables store **environment-specific or sensitive values**, such as:
+
+* API URLs
+* Public or private keys
+
+Example:
+
+```
+API_URL=https://api.example.com
+API_KEY=secret
+```
+
+---
+
+### Why `.env` is in `.gitignore`
+
+* Prevents leaking secrets
+* Allows different values per environment
+* Security best practice
+
+Usually paired with:
+
+* `.env.example` (committed, no secrets)
+
+---
+
+### Multiple Environment Files
+
+Common setup:
+
+* `.env.development` for local development
+* `.env.production` for deployment
+
+Angular equivalent:
+
+* `environment.ts`
+* `environment.prod.ts`
+
+The correct file is selected automatically during build.
+
+---
+
+## Frontend vs Backend Validation
+
+### Frontend validation
+
+* Improves user experience
+* Shows validation messages
+* Disables invalid actions
+
+### Backend validation (source of truth)
+
+* Enforces business rules
+* Protects data integrity
+* Ensures security
+
+Frontend validation alone is never sufficient.
+
+---
+
+## Final Summary
+
+* Angular handles UI and client-side state
+* ASP.NET Core API handles business logic and data
+* Communication happens only through APIs
+* Postman is used for testing and documenting APIs
+* Design patterns keep backend code clean
+* Middleware handles cross-cutting concerns
+* Environment variables protect configuration and secrets
+
+---
+
