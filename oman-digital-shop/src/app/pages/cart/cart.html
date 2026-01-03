@@ -1,0 +1,68 @@
+<h1>Shopping Cart</h1>
+@if (cartService.cart$ | async; as cart) {
+@if (cart.items.length === 0) {
+<div style="text-align:center;padding:3rem">
+    <p>Your cart is empty</p>
+
+    <a routerLink="/products">Start Shopping</a>
+
+</div>
+} @else {
+<table style="width:100%;border-collapse:collapse">
+    <thead>
+        <tr style="border-bottom:2px solid #ddd">
+            <th style="text-align:left;padding:1rem">Product</th>
+            <th style="text-align:left;padding:1rem">Price</th>
+            <th style="text-align:left;padding:1rem">Quantity</th>
+            <th style="text-align:left;padding:1rem">Total</th>
+            <th style="text-align:left;padding:1rem">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (item of cart.items; track item.product.id) {
+        <tr style="border-bottom:1px solid #ddd">
+            <td style="padding:1rem;display:flex;align-items:center;gap:1rem">
+                <img [src]="item.product.imageUrl" style="width:60px;height:60px;object-fit:cover">
+                <span>{{ item.product.name }}</span>
+            </td>
+            <td style="padding:1rem">{{ item.product.price | currency:'OMR' }}</td>
+            <td style="padding:1rem">
+                <input type="number" [value]="item.quantity" min="1" (change)="updateQuantity(item.product.id, $event)"
+                    style="width:60px;padding:0.5rem">
+            </td>
+            <td style="padding:1rem">{{ item.product.price * item.quantity | currency:'OMR' }}</td>
+            <td style="padding:1rem">
+                <button (click)="removeItem(item.product.id)"
+                    style="background:#f44336;color:white;padding:0.5rem;border:none;cursor:pointer">Remove</button>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<div style="max-width:400px;margin-left:auto;margin-top:2rem">
+    <div style="display:flex;justify-content:space-between;padding:0.5rem 0">
+        <span>Total Items:</span><span>{{ cart.totalItems }}</span>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;padding:0.5rem 0">
+
+
+        <span>Total:</span><span>{{ cart.totalPrice | currency:'OMR' }}</span>
+    </div>
+    <div style="display:flex;gap:1rem;margin-top:1rem">
+
+        <button (click)="clearCart()">Clear Cart</button>
+
+        @if (authService.isLoggedIn()) {
+
+        <a routerLink="/checkout">Checkout</a>
+
+        } @else {
+
+        <a routerLink="/login">Login to Checkout</a>
+
+        }
+    </div>
+</div>
+}
+}

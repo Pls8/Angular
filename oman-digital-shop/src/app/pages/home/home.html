@@ -1,0 +1,45 @@
+<section style="text-align:center;padding:4rem 2rem;background:linear-
+gradient(135deg,#DD0031,#1976D2);color:white;border-radius:8px;margin-bottom:2rem">
+
+    <h1 style="font-size:2.5rem">Welcome to Oman Digital Shop</h1>
+    <p style="font-size:1.2rem;margin:1rem 0">Your one-stop shop for electronics, fashion & more!</p>
+
+    <a routerLink="/products">Shop Now</a>
+
+</section>
+<h2>Shop by Category</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-bottom:2rem">
+    @for (category of categories; track category.id) {
+
+    <a [routerLink]="['/categories', category.id]">
+
+        <h3>{{ category.name }}</h3>
+    </a>
+    }
+</div>
+<h2>Featured Products</h2>
+@if (loading) {
+<p>Loading products...</p>
+} @else {
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.5rem">
+    @for (product of products; track product.id) {
+    <div style="border:1px solid #ddd;border-radius:8px;overflow:hidden">
+        <img [src]="product.imageUrl || 'https://via.placeholder.com/300x200'" [alt]="product.name"
+            style="width:100%;height:200px;object-fit:cover">
+        <div style="padding:1rem">
+            <h3 style="margin:0 0 0.5rem">{{ product.name }}</h3>
+            <p style="color:#DD0031;font-weight:bold;font-size:1.2rem">{{ product.price | currency:'OMR' }}</p>
+            <div style="display:flex;gap:0.5rem">
+
+                <a [routerLink]="['/products', product.id]">View</a>
+
+                <button (click)="addToCart(product)"
+                    style="flex:1;padding:0.5rem;background:#DD0031;color:white;border:none;border-radius:4px;cursor:pointer">Add
+                    to
+                    Cart</button>
+            </div>
+        </div>
+    </div>
+    }
+</div>
+}

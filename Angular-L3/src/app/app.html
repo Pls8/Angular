@@ -1,0 +1,69 @@
+<div class="container">
+  <h1>{{ title() }}</h1>
+  <div class="container">
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+      <button (click)="theme.set(theme() === 'dark' ? 'light' : 'dark')">
+        {{ theme() === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode' }}
+      </button>
+    </div>
+  </div>
+  <div class="items-section">
+    <h4> <app-greeting [userName]="currentUser"></app-greeting> </h4>
+    <!-- Counter Component -->
+    <app-counter (countChanged)="onCountChanged($event)"></app-counter>
+    <p>Counter value: {{ counterValue }}</p>
+  </div>
+
+
+  <!-- Simple Items List -->
+  <div class="items-section">
+    <h2>Items List</h2>
+    <input #itemInput type="text" placeholder="Enter item">
+    <button (click)="addItem(itemInput.value); itemInput.value = ''">Add</button>
+
+    <ul>
+      @for (item of items(); track $index) {
+      <li>
+        {{ item }}
+        <button (click)="removeItem($index)">Remove</button>
+      </li>
+      } @empty {
+      <li>No items yet</li>
+      }
+    </ul>
+    <p>Total: {{ items().length }}</p>
+  </div>
+
+  <!-- Simple User Profile -->
+  <div class="profile-section">
+    <h2>User Profile</h2>
+    <p>Name: {{ userProfile().name }}</p>
+    <p>Age: {{ userProfile().age }}</p>
+    <p>Email: {{ userProfile().email }}</p>
+    <p>Status: {{ userProfile().active ? 'Active' : 'Inactive' }}</p>
+  </div>
+
+
+  <!-- Price Calculator -->
+  <div class="calculator-section">
+    <h2>Price Calculator</h2>
+
+    <div class="input-group">
+      <label>Price: $</label>
+      <input type="number" [value]="price()" (input)="updatePrice($any($event.target).value)" min="0" step="0.01" />
+    </div>
+
+    <div class="input-group">
+      <label>Quantity:</label>
+      <input type="number" [value]="quantity()" (input)="updateQuantity($any($event.target).value)" min="0" />
+    </div>
+
+    <p class="subtotal">Subtotal: ${{ subtotal() }}</p>
+  </div>
+
+
+
+
+  <router-outlet />
+</div>

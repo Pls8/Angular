@@ -1,0 +1,40 @@
+.card {
+  transition: transform 0.3s, box-shadow 0.3s;
+  background: linear-gradient(145deg, #1a1a2e, #0f0f1e) !important;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(106, 90, 205, 0.5);
+  border-color: #6a5acd !important;
+}
+
+h2 {
+  text-shadow: 2px 2px 8px rgba(106, 90, 205, 0.8);
+  background: linear-gradient(90deg, #6a5acd, #4169e1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.text-info {
+  color: #87ceeb !important;
+}
+
+.text-primary {
+  color: #6a5acd !important;
+}
+
+.badge.bg-primary {
+  background: linear-gradient(135deg, #667eea, #764ba2) !important;
+}

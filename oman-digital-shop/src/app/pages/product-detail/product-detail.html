@@ -1,0 +1,30 @@
+@if (loading) {
+<p>Loading product...</p>
+} @else if (product) {
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem">
+    <img [src]="product.imageUrl || 'https://via.placeholder.com/500x400'" [alt]="product.name"
+        style="width:100%;border-radius:8px">
+    <div>
+        <a [routerLink]="['/categories', product.categoryId]" style="color:#1976D2">{{ product.category?.name }}</a>
+        <h1 style="margin:0.5rem 0">{{ product.name }}</h1>
+        <p style="font-size:2rem;color:#DD0031;font-weight:bold">{{ product.price | currency:'OMR' }}</p>
+        <p style="color:#666;line-height:1.6">{{ product.description }}</p>
+        @if (product.stockQuantity > 0) {
+        <p style="color:green">✓ In Stock ({{ product.stockQuantity }} available)</p>
+        <div style="margin:1rem 0">
+            <label>Quantity: </label>
+            <input type="number" [(ngModel)]="quantity" min="1" [max]="product.stockQuantity"
+                style="width:80px;padding:0.5rem">
+        </div>
+
+        <button (click)="addToCart()" >Add to Cart</button>
+
+        } @else {
+        <p style="color:red">✗ Out of Stock</p>
+        }
+        <p style="margin-top:2rem"><a routerLink="/products" style="color:#666">← Back to Products</a></p>
+    </div>
+</div>
+} @else {
+<p>Product not found.</p>
+}

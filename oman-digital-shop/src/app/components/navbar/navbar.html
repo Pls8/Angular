@@ -1,0 +1,26 @@
+<nav style="display:flex;justify-content:space-between;padding:1rem 2rem;background:#DD0031;color:white">
+    <a routerLink="/" style="color:white;text-decoration:none;font-size:1.5rem;font-weight:bold">
+        Oman Digital Shop
+    </a>
+    <div style="display:flex;gap:1rem;align-items:center">
+        <a routerLink="/products" style="color:white">Products</a>
+        <a routerLink="/categories" style="color:white">Categories</a>
+        <a routerLink="/cart" style="color:white">
+            Cart
+            @if ((cartService.cart$ | async)?.totalItems; as count) {
+            <span style="background:white;color:#DD0031;padding:2px 8px;border-radius:50%;margin-left:5px">{{ count
+                }}</span>
+            }
+        </a>
+        @if (authService.currentUser$ | async; as user) {
+        <span>Hello, {{ user.firstName }}</span>
+        <button (click)="authService.logout()" style="background:white;color:#DD0031;border:none;padding:0.5rem
+1rem;border-radius:4px;cursor:pointer">Logout</button>
+        } @else {
+        <a routerLink="/login" style="color:white">Login</a>
+
+        <a routerLink="/register">Register</a>
+
+        }
+    </div>
+</nav>

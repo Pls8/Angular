@@ -1,0 +1,212 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+}
+
+h2 {
+  color: #ffffff;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #4CAF50;
+  padding-bottom: 10px;
+}
+
+/* Items Section */
+.items-section {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.items-section input[type="text"] {
+  padding: 10px 15px;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  margin-right: 10px;
+  width: 300px;
+}
+
+.items-section input[type="text"]:focus {
+  outline: none;
+  border-color: #4CAF50;
+  background: white;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+button:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* List Styles */
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+li {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+li button {
+  background-color: #f44336;
+  padding: 8px 15px;
+  font-size: 14px;
+}
+
+li button:hover {
+  background-color: #da190b;
+}
+
+/* Profile Section */
+.profile-section {
+  background: rgba(76, 175, 80, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.profile-section p {
+  font-size: 18px;
+  margin: 10px 0;
+  color: #ffffff;
+}
+
+.profile-section p strong {
+  color: #4CAF50;
+  margin-right: 10px;
+}
+
+/* Text Colors */
+p {
+  font-size: 16px;
+  color: #ffffff;
+}
+
+/* Calculator Section */
+.calculator-section {
+  background: rgba(65, 65, 65, 0.15);
+  backdrop-filter: blur(10px);
+  margin-top: 5%;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.input-group {
+  margin: 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.input-group label {
+  font-weight: bold;
+  min-width: 100px;
+  color: #ffffff;
+}
+
+.input-group input[type="number"] {
+  padding: 10px;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  border: 2px solid #dddddd;
+  border-radius: 4px;
+  width: 150px;
+}
+
+.input-group input[type="number"]:focus {
+  outline: none;
+  border-color: #ffc107;
+  background: white;
+}
+
+.subtotal {
+  font-size: 24px;
+  font-weight: bold;
+  color: #4CAF50;
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  text-align: center;
+  border: 1px solid rgba(76, 175, 80, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+  
+  .items-section input[type="text"] {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  button {
+    width: 100%;
+  }
+}
+
+
+.theme-toggle {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.theme-toggle button {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.theme-toggle button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}

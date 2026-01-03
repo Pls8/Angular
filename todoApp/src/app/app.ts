@@ -43,4 +43,32 @@ export class App {
   removeTodo(todo: ToDo): void {
     this.todos = this.todos.filter(t => t !== todo);
   }
+
+   // EDIT METHOD
+  startEdit(todo: ToDo): void {
+    this.editingTodoId = todo.id;
+    this.editText = todo.title;
+  }
+  
+  // SAVE EDIT
+  saveEdit(todo: ToDo): void {
+    if (this.editText.trim()) {
+      todo.title = this.editText.trim();
+    }
+    this.cancelEdit();
+  }
+  
+  // CANCEL EDIT
+  cancelEdit(): void {
+    this.editingTodoId = null;
+    this.editText = '';
+  }
+  
+  // CHECK IF EDITING
+  isEditing(todo: ToDo): boolean {
+    return this.editingTodoId === todo.id;
+  }
+
 }
+
+//  

@@ -1,0 +1,57 @@
+<div class="container my-5">
+  <div class="mb-4">
+    <a routerLink="/products" class="btn btn-outline-info">
+      <i class="bi bi-arrow-left"></i> Back to Catalog
+    </a>
+  </div>
+
+  @if (loading()) {
+    <div class="text-center my-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  } @else if (product()) {
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="card bg-dark border-secondary text-white shadow-lg">
+          <div class="card-body p-5">
+            <h1 class="display-5 text-info mb-3">{{ product()?.name }}</h1>
+            
+            <div class="mb-4">
+              @if (product()?.inStock) {
+                <span class="badge bg-primary fs-6">In Stock</span>
+              } @else {
+                <span class="badge bg-secondary fs-6">Out of Stock</span>
+              }
+            </div>
+
+            <p class="fs-2 fw-bold text-primary mb-4">
+              {{ product()?.price | currency }}
+            </p>
+
+            <div class="border-top border-secondary pt-4">
+              <h5 class="text-secondary">Product Description</h5>
+              <p class="lead">
+                This is a high-quality {{ product()?.name }} designed for professional use. 
+                Experience top-tier performance and reliability.
+              </p>
+            </div>
+
+            <div class="d-grid gap-2 mt-4">
+              <button class="btn btn-primary btn-lg" [disabled]="!product()?.inStock">
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div class="alert alert-warning text-center">
+      <h4 class="alert-heading">Product Not Found</h4>
+      <p>We couldn't find the product you're looking for. It might have been deleted.</p>
+      <a routerLink="/products" class="btn btn-warning">Return to List</a>
+    </div>
+  }
+</div>

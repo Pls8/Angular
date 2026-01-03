@@ -1,0 +1,9 @@
+<h1>Angular Shop (Signals)</h1>
+<app-cart-summary [cartItems]="cart()" (clearCart)="clearCart()">
+</app-cart-summary>
+<div class="products-grid">
+  @for (product of products(); track product.id) {
+    <app-product-card [product]="product" (addToCart)="addToCart($event)">
+    </app-product-card>
+  }
+</div>
