@@ -395,3 +395,162 @@ Frontend validation alone is never sufficient.
 
 ---
 
+
+## 1. Backend and Frontend Are Separate Applications
+
+Even though ASP.NET MVC *can* render views, in modern architectures:
+
+* ASP.NET Core is used as a **pure API (backend)**
+* Angular is used as a **separate frontend application**
+* They communicate only through **HTTP (REST APIs)**
+
+There is **no direct connection** between C# files and Angular file structure.
+The connection happens only through URLs such as:
+
+```
+https://localhost:7126/api/products
+```
+
+---
+
+## 2. How to Determine the Correct API URL
+
+The API base URL comes from **where the ASP.NET API is running**, not from Angular.
+
+If Swagger is available at:
+
+```
+https://localhost:7126/swagger/index.html
+```
+
+Then the API base URL is:
+
+```
+https://localhost:7126/api
+```
+
+Angular `environment.ts` should point to that:
+
+```ts
+export const environment = {
+  production: false,
+  apiUrl: 'https://localhost:7126/api'
+};
+```
+
+---
+
+## 3. Never Return EF Core Entities from Controllers
+
+**This is the most important rule.**
+
+EF Core entities often contain navigation properties like:
+
+* Product -> Category
+* Category -> Products
+
+This causes:
+
+* Circular JSON references
+* Runtime serialization exceptions
+* Angular showing HTTP 500 errors
+
+Even if Swagger appears to work, Angular will fail.
+
+### Correct Rule
+
+* Controllers return **DTOs only**
+* Entities stay inside Services and Repositories
+
+---
+
+## 4. DTOs Are Mandatory (Not Optional)
+
+When building an API with Entity Framework Core, entities often contain navigation properties that reference other entities.
+
+This can lead to:
+
+* Circular JSON references
+* Serialization exceptions at runtime
+* Angular receiving HTTP 500 errors even though Swagger appears to work
+
+To avoid these problems:
+
+* Controllers must return DTOs, not EF Core entities
+* DTOs should contain only the data required by the frontend
+* Navigation properties must never be exposed directly
+
+Using DTOs is not an optional optimization. It is a required practice when building clean, stable APIs.
+
+---
+
+## 7. CORS Is Required for Angular
+
+Angular runs on:
+
+```
+http://localhost:4200
+```
+
+ASP.NET API runs on:
+
+```
+https://localhost:7126
+```
+
+This requires CORS configuration:
+
+```csharp
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngular",
+        policy => policy
+            .WithOrigins("http://localhost:4200")
+            .AllowAnyHeader()
+            .AllowAnyMethod());
+});
+
+app.UseCors("AllowAngular");
+```
+
+Without this, requests are blocked by the browser.
+
+---
+
+## 10. Image Loading Errors Are Not API Errors
+
+Error like:
+
+```
+GET https://via.placeholder.com/300x200 net::ERR_NAME_NOT_RESOLVED
+```
+
+Means:
+
+* The external image URL is blocked or unreachable
+* API and Angular logic are still correct
+
+Best practice:
+
+* Use local assets as fallback images
+
+---
+
+## 11. Clean Architecture Responsibility Flow
+
+Correct direction:
+
+```
+Controller -> Service -> Repository -> DbContext
+```
+
+Rules:
+
+* Controllers: DTOs + HTTP only
+* Services: business logic
+* Repositories: database access
+* DbContext: EF Core
+
+
+---
+
