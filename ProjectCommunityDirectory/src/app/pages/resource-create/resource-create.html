@@ -1,0 +1,14 @@
+<h2>Suggest Resource</h2>
+
+<form (ngSubmit)="submit()">
+  <input [(ngModel)]="model.name" name="name" placeholder="Name" />
+  <textarea [(ngModel)]="model.description" name="description"></textarea>
+
+  <select [(ngModel)]="model.categoryId" name="categoryId">
+    <option *ngFor="let c of categories" [value]="c.id">
+      {{ c.name }}
+    </option>
+  </select>
+
+  <button type="submit">Submit</button>
+</form>
