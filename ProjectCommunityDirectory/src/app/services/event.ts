@@ -10,7 +10,7 @@ import { EventCreate } from '../models/event-create.model';
 export class EventService {
   private url = `${environment.apiUrl}/Events`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getAll() {
     return this.http.get<Event[]>(this.url);
@@ -30,16 +30,17 @@ export class EventService {
 
   getFullImageUrl(imagePath: string): string {
     if (!imagePath) return 'assets/images/event-placeholder.jpg';
-    
+
     if (imagePath.startsWith('http')) {
       return imagePath;
     }
-    
-    // Check if it's already a full path
-    if (imagePath.startsWith('/')) {
-      return `${environment.apiUrl}${imagePath}`;
-    }
-    
-    return `${environment.apiUrl}/imgs/${imagePath}`;
+
+    // // Check if it's already a full path
+    // if (imagePath.startsWith('/')) {
+    //   return `${environment.apiUrl}${imagePath}`;
+    // }
+    // return `${environment.apiUrl}/imgs/${imagePath}`;
+    const baseUrl = environment.apiUrl.replace('/api', '');
+    return `${baseUrl}${imagePath}`;
   }
 }

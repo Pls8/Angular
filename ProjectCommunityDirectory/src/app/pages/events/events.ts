@@ -66,4 +66,6 @@ export class EventsComponent implements OnInit {
     return this.eventService.getFullImageUrl(imagePath);
   }
 
+  
+
 }
